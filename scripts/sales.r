@@ -13,7 +13,7 @@ library(plotly)
 # EXTRACTION
 #
 
-csv_filepath = "https://raw.githubusercontent.com/prof-rossetti/intro-to-python/main/data/monthly-sales/sales-201803.csv"
+csv_filepath <- "https://raw.githubusercontent.com/prof-rossetti/intro-to-python/main/data/monthly-sales/sales-201803.csv"
 sales_df <- read_csv(csv_filepath)
 
 #
@@ -52,7 +52,7 @@ sales_by_date <- sales_by_date[order(sales_by_date$date),]
 
 # ... BY PRODUCT
 
-chart_title = "Top Selling Products (March 2018)"
+chart_title <- "Top Selling Products (March 2018)"
 
 fig <- plot_ly(
           x = sales_by_product$sales_total,
@@ -73,7 +73,7 @@ fig
 
 # ... BY DAY
 
-chart_title = "Sales by Day (March 2018)"
+chart_title <- "Sales by Day (March 2018)"
 
 fig <- plot_ly(
   x = sales_by_date$date,
