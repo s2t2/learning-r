@@ -7,9 +7,11 @@ library(glue)
 library(readr)
 #library(dplyr)
 library(plotly)
+# library(dotenv)
 
 # how to get environment variable / user input?
-api_key <- "demo" # ask for premium key
+# api_key <- Sys.getenv("API_KEY")
+api_key <- "demo" # use a premium key though
 
 # how to ask for user input?
 symbol <- "NFLX"
