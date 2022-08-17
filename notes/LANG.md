@@ -23,6 +23,14 @@ Install R:
 brew install r
 ```
 
+
+## Version Management
+
+Explore this R version manager for installing project-specific environments and packages:
+
+https://rstudio.github.io/renv/articles/renv.html
+
+
 ## Package Management
 
 Installing:

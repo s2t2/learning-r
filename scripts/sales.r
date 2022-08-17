@@ -2,6 +2,9 @@
 # https://www.r-bloggers.com/2010/02/r-sorting-a-data-frame-by-the-contents-of-a-column/
 # https://stackoverflow.com/a/70185712/670433
 
+#install.packages("janitor")
+#install.packages("tidyverse") #> collection of packages that work well together
+
 library(here)
 library(readr)
 library(janitor)
@@ -14,7 +17,7 @@ library(plotly)
 #
 
 csv_filepath <- "https://raw.githubusercontent.com/prof-rossetti/intro-to-python/main/data/monthly-sales/sales-201803.csv"
-sales_df <- read_csv(csv_filepath)
+sales_df <- readr::read_csv(csv_filepath)
 
 #
 # CLEANING :-D
@@ -32,19 +35,31 @@ sales_df <- sales_df %>%
 
 # ... BY PRODUCT
 
+#sales_by_product <- sales_df %>%
+#  group_by(product) %>%
+#  summarise(sales_total = sum(sales_price))
+#
+#sales_by_product <- sales_by_product[order(sales_by_product$sales_total, decreasing = TRUE),]
+#
+# (FYI: there are tidyverse ways of doing this)
+#
 sales_by_product <- sales_df %>%
   group_by(product) %>%
-  summarise(sales_total = sum(sales_price))
+  summarise(sales_total = sum(sales_price)) %>%
+  arrange(sales_total, desc = TRUE)
 
-sales_by_product <- sales_by_product[order(sales_by_product$sales_total, decreasing = TRUE),]
+print(sales_by_product)
 
 # ... BY DAY
 
 sales_by_date <- sales_df %>%
   group_by(date) %>%
-  summarise(sales_total = sum(sales_price))
+  summarise(sales_total = sum(sales_price)) %>%
+  arrange(date)
 
-sales_by_date <- sales_by_date[order(sales_by_date$date),]
+#sales_by_date <- sales_by_date[order(sales_by_date$date),]
+
+print(sales_by_date)
 
 #
 # DATAVIZ
