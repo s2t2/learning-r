@@ -14,6 +14,7 @@ head(teams)
 #glimpse(teams)
 #summary(teams)
 
+
 # typeof(teams) #> list
 # length(teams) #> 3 IS THIS A ROWS COUNT?
 
@@ -21,6 +22,20 @@ head(teams)
 # length(teams["city"]) #> 1 WAT?
 
 # use this syntax:
-typeof(teams$city) #> character
-length(teams$city) #> 4
-teams$city[1] #> "Boston"
+print(typeof(teams$city)) #> character
+print(length(teams$city)) #> 4
+print(teams$city[1]) #> "Boston"
+
+# cat (concatenate, can print multiple things, just display)
+cat("HELLO", "WORLD", sep=" --- ")
+
+# string concat (OPERATION):
+paste("HELLO", "WORLD")
+x <- paste("HELLO", "WORLD")
+x
+
+
+#print(head(teams))
+
+
+as.data.frame(teams)
