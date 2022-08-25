@@ -14,7 +14,7 @@ How to clear the console / start over? `ctrl + L`
 https://support.rstudio.com/hc/en-us/articles/200404846-Working-in-the-Console-in-the-RStudio-IDE
 
 
-### Local Development 
+### Local Development
 
 Install R:
 
@@ -23,18 +23,26 @@ Install R:
 brew install r
 ```
 
+
+## Version Management
+
+Explore this R version manager for installing project-specific environments and packages:
+
+https://rstudio.github.io/renv/articles/renv.html
+
+
 ## Package Management
 
 Installing:
 
 ```r
-install.packages("packagename") 
+install.packages("packagename")
 ```
 
 Importing:
 
 ```r
-library("packagename") 
+library("packagename")
 ```
 
 Inspecting:
@@ -53,6 +61,9 @@ provided_func()
 packagename::provided_func()
 ```
 
+
+
+
 ## Language Overview
 
 https://jhelvy.github.io/r4aPrimer/L1-getting-started.html
@@ -70,10 +81,61 @@ Assignment:
 x <- 2
 ```
 
+### User Inputs
+
+```r
+user_name <- readline(prompt="Enter name: ")
+user_name
+```
+
+### Environment Variables
+
+
+Use ".Renviron" file like a ".env" file:
+
+```sh
+ALPHAVANTAGE_API_KEY="abc123"
+MY_MESSAGE="super secret"
+```
+
+```r
+secret_message <- Sys.getenv("SECRET_MESSAGE")
+secret_message
+```
+
+Alternative, using ".env" file approach:
+
+```r
+install.packages("dotenv")
+
+library(dotenv)
+
+secret_message <- Sys.getenv("SECRET_MESSAGE")
+secret_message
+```
+
 ### Logical Operators
 
 Same as Python. Except instead of `and` and `or`, use `&` and `|` like Ruby.
 
+### Conditionals
+
+IF statement sytax is like JavaScript:
+
+```r
+if (expression) {
+  statement
+}
+```
+
+```r
+if (2+2 == 4) {
+  message <- "YEP"
+} else {
+  message <- "NOPE"
+}
+message
+```
 
 ### Datatypes
 
@@ -129,12 +191,12 @@ length(x)
 ```
 
 ```r
-mean(x) 	
-median(x) 	
-max(x) 	
-min(x) 	
-sum(x) 	
-prod(x) 	
+mean(x)
+median(x)
+max(x)
+min(x)
+sum(x)
+prod(x)
 ```
 
 Vector Comparison:
@@ -193,6 +255,8 @@ sort(a, decreasing = TRUE)
 
 https://jhelvy.github.io/r4aPrimer/L3-data-frames.html
 
+See [teams.r](teams.r)
+
 ```r
 teams <- data.frame(
     city   = c("Boston", "New York", "New York", "New Haven"),
@@ -202,12 +266,11 @@ teams <- data.frame(
 ```
 
 ```r
-ypeof(teams) #> list WAT
-typeof(teams["city"]) #> list WAT
-
-length(teams) #> 3
- length(teams["city"]) #> 1 WAT
+teams$city #>  "Boston"    "New York"  "New York"  "New Haven"
+teams$city[1] #> "Boston
 ```
+
+
 
 Inspecting / previewing the rows:
 
@@ -223,7 +286,7 @@ glimpse(teams)
 summary(teams)
 ```
 
-Smarter? Data Frames:
+Smarter Data Frames:
 
 ```r
 # install.packages('dplyr')
@@ -238,7 +301,7 @@ length(teams)
 ```
 
 ```r
-teams$city #> 
+teams$city #>
 teams$city[1] #> "Boston"
 ```
 
@@ -264,23 +327,23 @@ max(grades)
 ```
 
 
-### Dataviz
+## Dataviz
 
 
 ```r
 plot(x = gradebook_df$student_id, y = gradebook_df$final_grade)
 
 hist(x = gradebook_df$final_grade)
- 
+
 # https://www.geeksforgeeks.org/r-bar-charts/
 barplot(gradebook_df$final_grade, main="Title", xlab="X Axis", ylab="Y Axis")
 ```
 
-See [stocks.r](sales.r) file.
+See [stocks.r](stocks.r) file.
 
 
 
-### Wrangling
+## Wrangling
 
 ```r
 df %>%
@@ -290,10 +353,9 @@ df %>%
   select(state, mean_height)
 ```
 
-### Grouping / Aggregation 
+## Grouping / Aggregation
 
 https://jhelvy.github.io/r4aPrimer/L4-data-wrangling.html#31_The_group_by()_function
 
 
 See [sales.r](sales.r) file.
-
