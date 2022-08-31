@@ -40,15 +40,13 @@ print(words_by_race)
 # DATAVIZ
 #
 
-chart_title <- "LOTR Word Frequencies by Character Race"
-
 fig <- plot_ly(
           y = words_by_race$Race,
           x = words_by_race$words_total,
           type = 'bar',
           orientation = 'h'
       ) %>% layout(
-        title = chart_title,
+        title = "LOTR Word Frequencies by Character Race",
         xaxis = list(title = "Total Words"),
         yaxis = list(
           title = "Race",
@@ -56,5 +54,42 @@ fig <- plot_ly(
         )
       )
 
+fig
+
+
+# stacked bar
+# https://plotly.com/r/bar-charts/
+
+#Animals <- c("giraffes", "orangutans", "monkeys")
+#SF_Zoo <- c(20, 14, 23)
+#LA_Zoo <- c(12, 18, 29)
+#data <- data.frame(Animals, SF_Zoo, LA_Zoo)
+#
+#fig <- plot_ly(data, x = ~Animals, y = ~SF_Zoo, type = 'bar', name = 'SF Zoo')
+#fig <- fig %>% add_trace(y = ~LA_Zoo, name = 'LA Zoo')
+#fig <- fig %>% layout(yaxis = list(title = 'Count'), barmode = 'stack')
+#fig
+
+
+fig <- plot_ly(
+          y = words_by_race$Race,
+          type = 'bar',
+          orientation = 'h',
+
+          x = words_by_race$words_female,
+          name = 'Female',
+
+      ) %>% add_trace(
+          x = words_by_race$words_male,
+          name = 'Male'
+      ) %>% layout(
+        title = "LOTR Word Frequencies by Character Gender and Race",
+        xaxis = list(title = "Word Count"),
+        yaxis = list(
+          title = "Race",
+          categoryorder = "total ascending" # descending
+        ),
+        barmode = 'stack'
+      )
 
 fig
