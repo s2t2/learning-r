@@ -59,6 +59,8 @@ fig
 
 # stacked bar
 # https://plotly.com/r/bar-charts/
+# customize colors: https://stackoverflow.com/a/46206740/670433
+
 
 #Animals <- c("giraffes", "orangutans", "monkeys")
 #SF_Zoo <- c(20, 14, 23)
@@ -78,10 +80,12 @@ fig <- plot_ly(
 
           x = words_by_race$words_female,
           name = 'Female',
+          marker = list(color = 'pink')
 
       ) %>% add_trace(
           x = words_by_race$words_male,
-          name = 'Male'
+          name = 'Male',
+          marker = list(color = '#add8e6')
       ) %>% layout(
         title = "LOTR Word Frequencies by Character Gender and Race",
         xaxis = list(title = "Word Count"),
