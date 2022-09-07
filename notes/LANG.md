@@ -61,7 +61,9 @@ provided_func()
 packagename::provided_func()
 ```
 
+### Project Management
 
+In R Studio, before working with any .Rmd file, we need to run the .RProj file first, to help configure file paths, etc. Otherwise `here` filepaths might not work as expected.
 
 
 ## Language Overview
