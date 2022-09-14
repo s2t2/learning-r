@@ -104,7 +104,8 @@ View(state_abbs)
 
 new_milk <- milk_production %>% 
     select(c('region', 'state')) %>% 
-    rename(state_name=state)
+    rename(state_name=state) %>% 
+    distinct()
 View(new_milk)
 
 state_data <- state_abbs %>% 
@@ -118,8 +119,13 @@ View(state_data)
 wildlife_impacts2 <- wildlife_impacts %>% 
     rename(state_abb=state)  %>%
     left_join(state_data, by="state_abb")
-
 View(wildlife_impacts2)
+
+
+wildlife_impacts3 <- wildlife_impacts %>% 
+    left_join(state_data, by=c("state_abb"="state"))
+View(wildlife_impacts3)
+
 ```
 
 # 2. Re-naming and re-typing variables
