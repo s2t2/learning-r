@@ -259,7 +259,7 @@ View(impacts_2)
 ```{r}
 #impacts_2$weekday_name <- impacts_2$incident_date
 
-impacts_3 <- impacts_df %>% 
+impacts_3 <- impacts_2 %>% 
     mutate(
         weekday_name = lubridate::wday(incident_date, label=TRUE)
     )
@@ -270,6 +270,12 @@ View(impacts_3)
 
 ```{r, echo=FALSE, fig.width=9, fig.height=4.5, fig.align='center'}
 # Write code here
+
+impacts_pivot <- impacts_3 %>% 
+    filter(incident_month==3, incident_year==2016) %>% 
+    count(phase_new, weekday_name)
+View(impacts_pivot)
+
 
 
 
