@@ -6,8 +6,8 @@ output: html_document
 ---
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
-# install.packages('lubridate')
-# install.packages('janitor')
+install.packages('lubridate') # for dealing with dates
+install.packages('janitor') # for cleaning data
 
 library(knitr)
 library(tidyverse)
@@ -89,6 +89,10 @@ state_abbs <- tibble::tribble(
     "Armed Forces Middle East",             "AE",
         "Armed Forces Pacific",             "AP"
 )
+
+View(wildlife_impacts)
+View(milk_production)
+View(state_abbs)
 ```
 
 # 1. Joins
@@ -97,6 +101,19 @@ state_abbs <- tibble::tribble(
 
 ```{r}
 # Write code here
+
+#state_data <- milk_production %>% 
+#    rename(state=state_name) %>% 
+#    left_join(state_abbs, by="state_name")
+
+new_milk <- milk_production %>% 
+    select(c('region', 'state')) %>% 
+    rename(state_name=state)
+View(new_milk)
+
+state_data <- state_abbs %>% 
+    left_join(new_milk, by="state_name")
+View(state_data)
 ```
 
 2) Create the data frame `wildlife_impacts2` by joining the `state_data` data frame to the `wildlife_impacts` data frame, adding the variables `region` and `state_name`.
