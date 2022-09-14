@@ -234,10 +234,25 @@ View(hot_dog_final)
 - All other values should be called `'other'`.
 
 ```{r}
+csv_filepath = here::here("data", "wildlife_impacts.csv")
+impacts_df <- read_csv(csv_filepath)
+View(impacts_df)
+
 arrival_names <- c('approach', 'arrival', 'descent', 'landing roll')
 departure_names <- c('climb', 'departure', 'take-off run')
 
-# Write code here
+impacts_2 <- impacts_df %>% 
+    mutate(
+        phase_new = case_when(
+            tolower(phase_of_flt) %in% arrival_names ~ 'ARRIVAL',
+            tolower(phase_of_flt) %in% departure_names ~ 'DEPARTURE',
+            TRUE ~ 'OTHER'
+        )
+    )
+    
+View(impacts_2)
+
+
 ```
 
 2) Use the **lubridate** package to create a new variable, `weekday_name`, from the `incident_date` variable in the `wildlife_impacts` data.
@@ -250,4 +265,7 @@ departure_names <- c('climb', 'departure', 'take-off run')
 
 ```{r, echo=FALSE, fig.width=9, fig.height=4.5, fig.align='center'}
 # Write code here
+
+
+
 ```
