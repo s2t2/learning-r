@@ -196,9 +196,12 @@ hot_dog_final <- hot_dog_tall[!is.na(hot_dog_tall$contestant), ]
 hot_dog_final <- hot_dog_final %>% 
     mutate(
         dogs_eaten_clean = parse_number(dogs_eaten),
-        new_record = case_when(
-            str_detect(hot_dog_final$dogs_eaten, '\\*') ~ TRUE,
-            TRUE ~ FALSE
+        #new_record = case_when(
+        #    str_detect(hot_dog_final$dogs_eaten, '\\*') ~ TRUE,
+        #    TRUE ~ FALSE
+        #)
+        new_record = if_else(
+            str_detect(hot_dog_final$dogs_eaten, '\\*'), TRUE, FALSE
         )
     ) %>% 
     select(-'dogs_eaten') %>% 
