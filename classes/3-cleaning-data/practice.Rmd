@@ -249,7 +249,6 @@ impacts_2 <- impacts_df %>%
             TRUE ~ 'OTHER'
         )
     )
-    
 View(impacts_2)
 
 
@@ -258,7 +257,13 @@ View(impacts_2)
 2) Use the **lubridate** package to create a new variable, `weekday_name`, from the `incident_date` variable in the `wildlife_impacts` data.
 
 ```{r}
-# Write code here
+#impacts_2$weekday_name <- impacts_2$incident_date
+
+impacts_3 <- impacts_df %>% 
+    mutate(
+        weekday_name = lubridate::wday(incident_date, label=TRUE)
+    )
+View(impacts_3)
 ```
 
 3) Use `weekday_name` and `phase_of_flt` to make this plot of "arrival" and "departure" impacts from **Feb. 2016**.
