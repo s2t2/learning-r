@@ -133,7 +133,93 @@ View(wildlife_impacts3)
 Read in the `hot_dog_winners.xlsx` file and adjust the variable names and types to match those shown on the screen.
 
 ```{r}
-# Write code here
+
+# IMPORT 
+
+csv_filepath = here::here("data", "hot_dog_winners.xlsx")
+hot_dog_winners <- read_excel(csv_filepath)
+View(hot_dog_winners)
+print(colnames(hot_dog_winners))
+
+# CLEAN 
+# ... consider janitor::clean_names(hot_dog_winners)
+# https://www.datasciencemadesimple.com/union-union_all-function-r-using-dplyr-union-data-frames/
+# https://stackoverflow.com/questions/34429001/adding-a-column-to-data-frame-and-fill-that-column-with-a-particular-string-usin
+# https://stackoverflow.com/questions/9126840/delete-rows-with-blank-values-in-one-particular-column
+# https://www.sharpsightlabs.com/blog/case-when-r/
+
+hot_dogs_clean <- hot_dog_winners %>% 
+    rename(c(
+        'year'='Year',
+        
+        'male_contestant'='Mens',
+        'male_dogs_eaten'='Dogs eaten...3',
+        'male_country'='Country...4',
+        
+        'female_contestant'='Womens',
+        'female_dogs_eaten'='Dogs eaten...6',
+        'female_country'='Country...7',
+    ))
+
+View(hot_dogs_clean)
+
+hot_dog_males <- hot_dogs_clean %>% 
+    select(c('year', 'male_contestant', 'male_dogs_eaten', 'male_country')) %>% 
+    rename(c(
+       'contestant'='male_contestant',
+       'dogs_eaten'='male_dogs_eaten',
+       'country'='male_country'
+    ))
+hot_dog_males$gender <- 'MALE'
+View(hot_dog_males)
+
+hot_dog_females <- hot_dogs_clean %>% 
+    select(c('year', 'female_contestant', 'female_dogs_eaten', 'female_country')) %>% 
+    rename(c(
+       'contestant'='female_contestant',
+       'dogs_eaten'='female_dogs_eaten',
+       'country'='female_country'
+    ))
+hot_dog_females$gender <- 'FEMALE'
+View(hot_dog_females)
+
+hot_dog_tall <- union(hot_dog_males,hot_dog_females)
+View(hot_dog_tall)
+
+# drop columns that have null contestant
+hot_dog_final <- hot_dog_tall[!is.na(hot_dog_tall$contestant), ]
+
+#hot_dog_final$dogs_eaten_clean <- apply(hot_dog_final, 3, parse_number)
+#hot_dog_final$new_record <- apply(hot_dog_final, 'dogs_eaten', myFunction)
+
+# split asterisk into a clean col of dogs and a separate col of record
+hot_dog_final <- hot_dog_final %>% 
+    mutate(
+        dogs_eaten_clean = parse_number(dogs_eaten),
+        new_record = case_when(
+            str_detect(hot_dog_final$dogs_eaten, '\\*') ~ TRUE,
+            TRUE ~ FALSE
+        )
+    ) %>% 
+    select(-'dogs_eaten') %>% 
+    rename('dogs_eaten'='dogs_eaten_clean')
+
+#case_when(test_score_vector >= 90 ~ 'A'
+#          ,test_score_vector >= 80 ~ 'B'
+#          ,test_score_vector >= 70 ~ 'C'
+#          ,test_score_vector >= 60 ~ 'D'
+#          ,TRUE ~ 'F'
+#          )
+
+#str_detect('67.5*', '7') #> TRUE
+
+#str_detect('67.5*', '*') #> 
+#> Error in stri_detect_regex(string, pattern, negate = negate, opts_regex = opts(pattern)) : 
+#> Syntax error in regex pattern. (U_REGEX_RULE_SYNTAX, context=`*`)
+
+# str_detect('67.5*', '\\*') #> TRUE
+
+View(hot_dog_final)
 ```
 
 # 3. Recoding variables
