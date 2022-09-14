@@ -102,10 +102,6 @@ View(state_abbs)
 ```{r}
 # Write code here
 
-#state_data <- milk_production %>% 
-#    rename(state=state_name) %>% 
-#    left_join(state_abbs, by="state_name")
-
 new_milk <- milk_production %>% 
     select(c('region', 'state')) %>% 
     rename(state_name=state)
@@ -119,7 +115,11 @@ View(state_data)
 2) Create the data frame `wildlife_impacts2` by joining the `state_data` data frame to the `wildlife_impacts` data frame, adding the variables `region` and `state_name`.
 
 ```{r}
-# Write code here
+wildlife_impacts2 <- wildlife_impacts %>% 
+    rename(state_abb=state)  %>%
+    left_join(state_data, by="state_abb")
+
+View(wildlife_impacts2)
 ```
 
 # 2. Re-naming and re-typing variables
