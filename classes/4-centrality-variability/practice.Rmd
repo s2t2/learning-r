@@ -35,15 +35,28 @@ Decide here:
 https://docs.google.com/presentation/d/1J8UtyEwkA5QEcQQ9LCAs4EU1gyhPY7QIoIW_T_gys6o/edit?usp=sharing
 
 ```{r}
-wildlife_impacts %>%
+#wildlife_impacts %>%
+#  filter(!is.na(cost_repairs_infl_adj)) %>%
+#  select(incident_date, time_of_day, species, cost_repairs_infl_adj)
+
+wildlife_clean <- wildlife_impacts %>%
   filter(!is.na(cost_repairs_infl_adj)) %>%
   select(incident_date, time_of_day, species, cost_repairs_infl_adj)
+
+View(wildlife_clean)
+glimpse(wildlife_clean)
+
+typeof(wildlife_clean) #> list
+typeof(wildlife_clean$incident_date)
+typeof(wildlife_clean$time_of_day)
+typeof(wildlife_clean$species)
+typeof(wildlife_clean$cost_repairs_infl_adj)
 ```
 
-- incident_date:
-- time_of_day:
-- species:
-- cost_repairs_infl_adj:
+- incident_date: double
+- time_of_day: character
+- species: character
+- cost_repairs_infl_adj: double
 
 
 
