@@ -277,14 +277,39 @@ plot_ly(y = runners_by_state$State, x= runners_by_state$runner_count, type = "ba
 ```{r}
 # marathon: Age & `Official Time`
 
+View(marathon)
+summary(marathon$`Official Time`)
+
+times_by_age <- marathon %>% 
+    group_by(Age) %>% 
+    summarize(avg_time = mean(`Official Time`))
+    
+View(times_by_age)
+summary(times_by_age)
+# hmm the times are formatted as 'X sec' (string) hmmmmm
+
+plot_ly(x = times_by_age$Age, y= times_by_age$avg_time, type = "bar") %>%
+    layout(
+        title="Average Finish Time by Age",
+        xaxis= list(title="Age"),
+        yaxis= list(title="Mean Finish Time")
+    )
+```
+
+```{r}
 
 # marathon: Country & `Official Time`
 
 
-# wildlife_impacts: state & operator
 
 ```
 
+```{r}
+
+# wildlife_impacts: state & operator
+
+
+```
 
 
 # Practice doing EDA
