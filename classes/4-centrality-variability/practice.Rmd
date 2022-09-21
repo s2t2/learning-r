@@ -194,9 +194,45 @@ plot_ly(x = marathon$Age, type = "histogram", nbinsx=100)
 
 # marathon: State
 
+# let's count the number of participants from each state
+# https://dplyr.tidyverse.org/reference/count.html
 
+runners_by_state <- marathon %>%
+    group_by(State) %>%
+    summarise(
+        #runner_count=count() # NOPE
+        #runner_count= tally() # NOPE
+        runner_count= n()  # YES!
+    ) %>%
+    arrange(desc(runner_count))
 
+View(runners_by_state)
 
+#plot_ly(x = runners_by_state$State, y= runners_by_state$runner_count, type = "bar")
+#
+#plot_ly(y = runners_by_state$State, x= runners_by_state$runner_count, type = "bar", orientation="h")
+#
+#plot_ly(y = runners_by_state$State, x= runners_by_state$runner_count, type = "bar", orientation="h") %>%
+#layout(xaxis = list(categoryorder = "total descending"))
+#%>%
+#    layout(
+#         title = "Runners by state",
+#         xaxis = list(title = "X AXIS LABEL", categoryorder = "array", categoryarray = runners_by_state$runner_count),
+#         yaxis = list(title = "Y AXIS LABEL")
+#)
+
+plot_ly(x = runners_by_state$State, y= runners_by_state$runner_count, type = "bar") %>%
+    layout(
+        title="Runners by state",
+        xaxis= list(categoryorder= "total descending")
+    )
+
+plot_ly(y = runners_by_state$State, x= runners_by_state$runner_count, type = "bar", orientation="h") %>%
+    layout(
+        title="Runners by state",
+        yaxis= list(title="State", categoryorder= "total ascending"),
+        xaxis= list(title="Number of Runners")
+    )
 
 ```
 
