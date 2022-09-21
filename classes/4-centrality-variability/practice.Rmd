@@ -78,13 +78,44 @@ typeof(wildlife_clean$cost_repairs_infl_adj)
 View(milk_production)
 
 #summarise(milk_production) # NOPE
+summary(milk_production) # YEP
+#>   region             state                year      milk_produced
+#> Length:2400        Length:2400        Min.   :1970   Min.   :3.000e+06
+#> Class :character   Class :character   1st Qu.:1982   1st Qu.:4.610e+08
+#> Mode  :character   Mode  :character   Median :1994   Median :1.348e+09
+#>                                       Mean   :1994   Mean   :3.132e+09
+#>                                       3rd Qu.:2005   3rd Qu.:2.744e+09
+#>                                       Max.   :2017   Max.   :4.234e+10
 
-milk_production %>% 
+milk_production %>%
+    summarise(
+      mean = mean(milk_produced), #> 3_131_641_667
+      median = median(milk_produced), #> 1_347_500_000
+      stdev = sd(milk_produced), #> 5_422_560_750
+      iqr = IQR(milk_produced) #> 2_283_250_000
+    )
+
+# BY REGION
+
+milk_production %>%
+    group_by(region) %>%
     summarise(
       mean = mean(milk_produced), #> 3_131_641_667
       median = median(milk_produced), #> 1_347_500_000
       stdev = sd(milk_produced) #> 5_422_560_750
-    )
+    ) %>%
+    arrange(desc(mean))
+
+# BY STATE
+
+milk_production %>%
+    group_by(state) %>%
+    summarise(
+      mean = mean(milk_produced), #> 3_131_641_667
+      median = median(milk_produced), #> 1_347_500_000
+      stdev = sd(milk_produced) #> 5_422_560_750
+    ) %>%
+    arrange(desc(mean)) # https://dplyr.tidyverse.org/reference/desc.html
 ```
 
 ```{r}
@@ -93,7 +124,7 @@ milk_production %>%
 
 View(lotr_words)
 
-lotr_words %>% 
+lotr_words %>%
     summarise(
       mean_male = mean(Male),  #> 2_090.778
       median_male = median(Male), #> 2_459
@@ -150,19 +181,21 @@ plot_ly(x = faithful$waiting, type = "histogram", nbinsx=30)
 
 
 ```{r}
-
-
 # marathon: Age
 
+View(marathon)
 
+plot_ly(x = marathon$Age, type = "histogram", nbinsx=100)
 ```
 
 
 
 ```{r}
 
-
 # marathon: State
+
+
+
 
 
 ```
