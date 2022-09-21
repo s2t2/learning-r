@@ -75,8 +75,31 @@ typeof(wildlife_clean$cost_repairs_infl_adj)
 ```{r}
 # milk_production:
 
+View(milk_production)
+
+#summarise(milk_production) # NOPE
+
+milk_production %>% 
+    summarise(
+      mean = mean(milk_produced), #> 3_131_641_667
+      median = median(milk_produced) #> 1_347_500_000
+    )
+
+```
+
+```{r}
 
 # lotr_words
+
+View(lotr_words)
+
+lotr_words %>% 
+    summarise(
+      mean_male = mean(Male),  #> 2_090.778
+      median_male = median(Male), #> 2_459
+      mean_female = mean(Female),  #> 269.7778
+      median_female = median(Female), #> 183
+    )
 
 ```
 
