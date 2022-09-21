@@ -122,24 +122,71 @@ lotr_words %>%
 - marathon: `Official Time`
 
 ```{r}
-# faithful: eruptions
+# https://plotly.com/r/histograms/
+# https://plotly.com/r/reference/#histogram
+# https://stackoverflow.com/questions/54816608/customizing-bin-widths-in-plotlys-histogram-function-in-r
 
+library(plotly)
+
+# faithful: eruptions
+View(faithful)
+
+fig <- plot_ly(x = faithful$eruptions, type = "histogram", nbinsx=30)
+fig
+
+```
+
+
+
+```{r}
 
 # faithful: waiting
+
+plot_ly(x = faithful$waiting, type = "histogram", nbinsx=30)
+
+```
+
+
+```{r}
 
 
 # marathon: Age
 
 
+```
+
+
+
+```{r}
+
+
 # marathon: State
 
 
+```
+
+
+
+```{r}
+
 # marathon: Country
+
+
+
+```
+
+
+```{r}
 
 
 # marathon: `Official Time`
 
 ```
+
+
+
+
+
 
 
 
