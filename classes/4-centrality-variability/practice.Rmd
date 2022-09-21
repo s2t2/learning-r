@@ -186,6 +186,19 @@ plot_ly(x = faithful$waiting, type = "histogram", nbinsx=30)
 View(marathon)
 
 plot_ly(x = marathon$Age, type = "histogram", nbinsx=100)
+
+plot_ly(y = marathon$Age, type = "box") %>% 
+    layout(
+        title="Distribution of Ages",
+        yaxis = list(title="Age")
+    )
+
+
+plot_ly(x = marathon$Age, type = "box") %>% 
+    layout(
+        title="Distribution of Ages",
+        xaxis = list(title="Age")
+    )
 ```
 
 
@@ -234,6 +247,8 @@ plot_ly(y = runners_by_state$State, x= runners_by_state$runner_count, type = "ba
         xaxis= list(title="Number of Runners")
     )
 
+
+
 ```
 
 
@@ -277,18 +292,36 @@ plot_ly(y = runners_by_state$State, x= runners_by_state$runner_count, type = "ba
 ```{r}
 # marathon: Age & `Official Time`
 
-View(marathon)
-summary(marathon$`Official Time`)
+#View(marathon)
+#summary(marathon$`Official Time`)
+#
+#times_by_age <- marathon %>% 
+#    group_by(Age) %>% 
+#    summarize(avg_time = mean(`Official Time`))
+#    
+#View(times_by_age)
+#summary(times_by_age)
+## hmm the times are formatted as 'X sec' (string) hmmmmm
+#
+#plot_ly(x = times_by_age$Age, y= times_by_age$avg_time, type = "bar") %>%
+#    layout(
+#        title="Average Finish Time by Age",
+#        xaxis= list(title="Age"),
+#        yaxis= list(title="Mean Finish Time")
+#    )
 
-times_by_age <- marathon %>% 
+library(lubridate)
+
+tidy_marathon <- marathon
+tidy_marathon$finish_time_sec = as.numeric(seconds(marathon$`Official Time`))
+View(tidy_marathon)
+
+times_by_age <- tidy_marathon %>% 
     group_by(Age) %>% 
-    summarize(avg_time = mean(`Official Time`))
-    
+    summarize(avg_finish_time_sec = mean(finish_time_sec))
 View(times_by_age)
-summary(times_by_age)
-# hmm the times are formatted as 'X sec' (string) hmmmmm
 
-plot_ly(x = times_by_age$Age, y= times_by_age$avg_time, type = "bar") %>%
+plot_ly(x = times_by_age$Age, y= times_by_age$avg_finish_time_sec, type = "bar") %>%
     layout(
         title="Average Finish Time by Age",
         xaxis= list(title="Age"),
