@@ -82,9 +82,9 @@ View(milk_production)
 milk_production %>% 
     summarise(
       mean = mean(milk_produced), #> 3_131_641_667
-      median = median(milk_produced) #> 1_347_500_000
+      median = median(milk_produced), #> 1_347_500_000
+      stdev = sd(milk_produced) #> 5_422_560_750
     )
-
 ```
 
 ```{r}
@@ -97,8 +97,10 @@ lotr_words %>%
     summarise(
       mean_male = mean(Male),  #> 2_090.778
       median_male = median(Male), #> 2_459
+      stdev_male = sd(Male), #> 1_200.084
       mean_female = mean(Female),  #> 269.7778
       median_female = median(Female), #> 183
+      stdev_female = sd(Female), #> 392.3161
     )
 
 ```
