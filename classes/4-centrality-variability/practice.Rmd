@@ -187,14 +187,14 @@ View(marathon)
 
 plot_ly(x = marathon$Age, type = "histogram", nbinsx=100)
 
-plot_ly(y = marathon$Age, type = "box") %>% 
+plot_ly(y = marathon$Age, type = "box") %>%
     layout(
         title="Distribution of Ages",
         yaxis = list(title="Age")
     )
 
 
-plot_ly(x = marathon$Age, type = "box") %>% 
+plot_ly(x = marathon$Age, type = "box") %>%
     layout(
         title="Distribution of Ages",
         xaxis = list(title="Age")
@@ -295,10 +295,10 @@ plot_ly(y = runners_by_state$State, x= runners_by_state$runner_count, type = "ba
 #View(marathon)
 #summary(marathon$`Official Time`)
 #
-#times_by_age <- marathon %>% 
-#    group_by(Age) %>% 
+#times_by_age <- marathon %>%
+#    group_by(Age) %>%
 #    summarize(avg_time = mean(`Official Time`))
-#    
+#
 #View(times_by_age)
 #summary(times_by_age)
 ## hmm the times are formatted as 'X sec' (string) hmmmmm
@@ -316,8 +316,8 @@ tidy_marathon <- marathon
 tidy_marathon$finish_time_sec = as.numeric(seconds(marathon$`Official Time`))
 View(tidy_marathon)
 
-times_by_age <- tidy_marathon %>% 
-    group_by(Age) %>% 
+times_by_age <- tidy_marathon %>%
+    group_by(Age) %>%
     summarize(avg_finish_time_sec = mean(finish_time_sec))
 View(times_by_age)
 
@@ -334,7 +334,17 @@ plot_ly(x = times_by_age$Age, y= times_by_age$avg_finish_time_sec, type = "bar")
 # marathon: Country & `Official Time`
 
 
+times_by_country <- tidy_marathon %>%
+    group_by(Country) %>%
+    summarize(avg_finish_time_sec = mean(finish_time_sec))
+View(times_by_country)
 
+plot_ly(y = times_by_country$Country, x= times_by_country$avg_finish_time_sec, type = "bar", orientation="h") %>%
+    layout(
+        title="Average Finish Time by Country",
+        yaxis= list(title="Country", categoryorder= "total descending"),
+        xaxis= list(title="Mean Finish Time")
+    )
 ```
 
 ```{r}
@@ -359,4 +369,37 @@ plot_ly(x = times_by_age$Age, y= times_by_age$avg_finish_time_sec, type = "bar")
 
 ```{r}
 
+plot_ly(y = candy_rankings$sugarpercent, x = candy_rankings$winpercent, type = "scatter") %>%
+    layout(title="Relationship of Sugar Percantage to Win Percentage")
+
+plot_ly(y = candy_rankings$pricepercent, x = candy_rankings$winpercent, type = "scatter") %>%
+    layout(title="Relationship of Price Percantage to Win Percentage")
+
+```
+
+```{r}
+View(candy_rankings)
+
+plot_ly(y = candy_rankings$chocolate, x = candy_rankings$winpercent, type = "box") %>%
+    layout(title="Performance of feature: chocolate")
+```
+
+```{r}
+# https://www.math.ucla.edu/~anderson/rw1001/library/base/html/paste.html
+
+feature_names <- c('chocolate', 'fruity', 'caramel', 'peanutyalmondy', 'nougat', 'crispedricewafer', 'hard', 'bar', 'pluribus')
+
+for (feature_name in feature_names) {
+    print(feature_name)
+
+    img_filename <- paste("plot_", feature_name, ".png", sep="")
+    print(img_filename)
+
+    fig <- plot_ly(y = candy_rankings[feature_name], x = candy_rankings$winpercent, type = "box") %>%
+        layout(title= paste("Performance of feature:", feature_name))
+
+    #export(fig, file =img_filename)
+    # not working, maybe try orca instead
+
+}
 ```
