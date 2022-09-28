@@ -25,11 +25,19 @@ library(palmerpenguins)
 library(tidyverse)
 library(here)
 
+library(plotly) # :-)
+ 
 # Set theme for all ggplots
 theme_set(theme_bw(base_size = 20))
 
 # Read in data
 msleep <- read_csv(here('data', 'msleep.csv'))
+```
+
+
+```{r}
+View(msleep)
+View(penguins)
 ```
 
 # 1. Correlation
@@ -43,10 +51,85 @@ Using the `penguins` data frame:
 3. Add an annotation for the Pearson correlation coefficient.
 
 ```{r}
-# Write code here
+# https://allisonhorst.github.io/palmerpenguins/
+
+penguins %>% 
+    ggcorr()
+
+# LOOKS LIKE flipper_length_mm AND body_mass_g ARE MOST POSITIVELY CORRELATED
+
+my_cor <- cor(penguins$flipper_length_mm, penguins$body_mass_g, method="spearman", use="complete.obs")
+label_cor = paste("r=", round(my_cor,4))
+print(label_cor)
+#> 0.8399741
+
+cor(penguins$flipper_length_mm, penguins$bill_depth_mm, method="spearman", use="complete.obs")
+#> -0.5232675
+
 ```
 
+
+```{r}
+penguins %>% 
+    select(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g) %>% 
+    ggpairs()
+```
+
+
+```{r}
+# IN PYTHON THERE IS A PARAMETER TO DRAW THE TREND LINE BUT MAYBE NOT IN R :-/
+plot_ly(y = penguins$flipper_length_mm, x = penguins$body_mass_g, type = "scatter") %>% 
+
+```
+
+```{r}
+# USE GGPLOT :-D
+# https://ggplot2.tidyverse.org/reference/annotate.html
+
+penguins %>% 
+    ggplot( 
+        aes(x=flipper_length_mm, y = body_mass_g)
+    ) + 
+    geom_point() +
+    annotate(geom = 'text',
+             x = 215, # corresponds to the actual x and y values (not pixels)
+             y = 3000, # corresponds to the actual x and y values (not pixels)
+             label = label_cor,
+             hjust = 0, 
+             size = 7
+    )
+
+```
+
+```{r}
+penguins %>% 
+    ggplot( aes(x=flipper_length_mm, y = body_mass_g)) + 
+    geom_point() +
+    geom_smooth(aes(x=flipper_length_mm, y = body_mass_g), method="lm", se=FALSE)
+    annotate(geom = 'text',
+             x = 215, # corresponds to the actual x and y values (not pixels)
+             y = 3000, # corresponds to the actual x and y values (not pixels)
+             label = label_cor,
+             hjust = 0, 
+             size = 7
+    )
+
+```
+
+
 # 2. Linear models
+
+
+```{r}
+#model <- lm(formula = y ~ x, data = data)
+
+model <- lm(flipper_length_mm ~ body_mass_g, data=penguins)
+print(model)
+model_coefs = coef(model) #> intercept, slope
+print(model_coefs)
+```
+
+
 
 Using the `msleep` data frame:
 
@@ -57,8 +140,66 @@ Using the `msleep` data frame:
 Bonus: Compare your results to a log-linear relationship by converting the x and y variables to the log of x and y, like this:
 
 ```{r, eval=FALSE}
+View(msleep)
+
+x <- msleep$brainwt
+y <- msleep$bodywt
+
 model <- lm(log(x) ~ log(y), data = msleep)
+
+model_coefs = coef(model)
+print(model_coefs)
+
+msleep %>% 
+    ggplot( aes(x=brainwt, y = bodywt)) + 
+    geom_point() +
+    geom_smooth(aes(x=brainwt, y = bodywt), method="lm", se=FALSE)
+
+#msleep %>% 
+#    ggplot( aes(x=log(brainwt), y = log(bodywt))) + 
+#    geom_point() +
+#    geom_smooth(aes((x=log(brainwt), y = log(bodywt)), method="lm", se=FALSE)
+#> You can also convert your plot to log axes by adding these layers:
+#> plot +
+#>     scale_x_log10() +
+#>     scale_y_log10()
+
+msleep %>% 
+    ggplot( aes(x=brainwt, y = bodywt)) + 
+    geom_point() +
+    geom_smooth(aes(x=brainwt, y = bodywt), method="lm", se=FALSE) +
+    scale_x_log10() +
+    scale_y_log10()
+
 ```
+
+```{r}
+# https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/predict.lm
+
+#
+# GET EXAMPLE VALUES TO USE FOR PREDICTIONS
+#
+
+# test_set <- msleep %>% sample_n(1)
+# print(test_set)
+# x_test <- test_set$brainwt
+# print(x_test) #> 0.169
+# y_test <- test_set$bodywt
+# print(y_test) #> 207.501
+x_test <- 0.115
+y_test <- 207.501
+
+#y_pred = predict(model, x_test) 
+##> data' must be a data.frame, environment, or list
+y_pred = predict(model, data=c(x_test)) 
+print(y_pred) #> a matrix WAT?
+
+# SEE ALSO: https://www.tidymodels.org/
+```
+
+
+
+
 
 You can also convert your plot to log axes by adding these layers:
 
