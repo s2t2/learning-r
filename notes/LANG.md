@@ -344,6 +344,11 @@ barplot(gradebook_df$final_grade, main="Title", xlab="X Axis", ylab="Y Axis")
 See [stocks.r](stocks.r) file.
 
 
+### GGplot
+
+  + https://www.rdocumentation.org/packages/ggplot2/versions/3.3.6
+  + https://ggplot2.tidyverse.org/reference/
+
 
 ## Wrangling
 
