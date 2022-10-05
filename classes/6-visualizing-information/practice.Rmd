@@ -49,19 +49,25 @@ Use the `gapminder.csv` data to create the following plot, following these steps
 
 ```{r americasLifeExp, fig.width=10, fig.height=7}
 
+install.packages("ggtext")
+library(ggtext)
+
 
 prepared_data %>% 
     ggplot(
         #aes(x=lifeExp, y=country),
-        aes(y=reorder(country, lifeExp), x=lifeExp)
+        #aes(y=reorder(country, lifeExp), x=lifeExp)
     ) + 
-    geom_col() +
+    geom_col(
+        aes(y=reorder(country, lifeExp), x=lifeExp)
+    ) +
     labs(
         title = "Life expectency by country (2007, Americas)",
         x = "Life Exp",
         y  = "Country",
-    )
-
+    ) +
+    ggtitle("<span style='font-size: 22pt;'>This is bigger text</font>") +
+    theme(plot.title = element_markdown())
 
 
 ```
