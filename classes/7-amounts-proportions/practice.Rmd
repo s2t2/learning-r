@@ -97,15 +97,22 @@ bears_clean <- bears %>%
 View(bears_clean)
 
 
-bears_clean %>% ggplot() +
+bears_clean %>% 
+    mutate(
+        is_august = ifelse(month==8, TRUE, FALSE),
+        month = as.factor(month),
+    ) %>% 
+    ggplot() +
     geom_col(
-        aes(x=month, y=incident_count)
+        aes(x=month, y=incident_count, fill=is_august)
     ) + labs(
         title="Number of bear killings in each month",
         subtitle="August is the deadliest month",
         x="Month",
         y="Count"
-    )
+    ) + 
+    theme_minimal_hgrid() +
+    theme(legend.position = 'none')
 
 ```
 
