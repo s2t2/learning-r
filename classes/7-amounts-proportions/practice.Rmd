@@ -9,7 +9,13 @@ output: html_document
 library(tidyverse)
 library(here)
 library(cowplot)
-library(waffle)
+#library(waffle)
+
+install.packages("waffle", repos = "https://cinc.rud.is")
+library(waffle) 
+#> Error in library(waffle) : there is no package called ‘waffle’
+
+
 knitr::opts_chunk$set(
     warning = FALSE,
     message = FALSE,
@@ -138,7 +144,11 @@ wildlife_summary <- wildlife_impacts %>%
   filter(!is.na(time_of_day)) %>%
   count(time_of_day)
 
-wildlife_summary
+View(wildlife_summary)
+
+
+
+
 ```
 
 Stacked bars:
@@ -162,5 +172,23 @@ Pie chart:
 Waffle chart:
 
 ```{r wildlife_waffle, fig.height=5, fig.width=3.5}
-# Write code here
+
+# https://github.com/hrbrmstr/waffle
+# https://r-charts.com/part-whole/waffle-chart-ggplot2/#geom-waffle
+
+#install.packages("waffle", repos = "https://cinc.rud.is")
+#library(waffle) #> Error in library(waffle) : there is no package called ‘waffle’
+
+#> could not find function "geom_waffle" hmmm...
+
+wildlife_summary %>% ggplot(
+    aes(fill = group, values = value)
+  ) +
+  geom_waffle(n_rows = 8, size = 0.33, colour = "white")
+
+
+
+
+
+
 ```
