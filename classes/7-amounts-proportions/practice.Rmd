@@ -86,7 +86,27 @@ chart_data %>% ggplot() +
 Create the following charts:
 
 ```{r bear_bars, fig.width=7, fig.height=5}
-# Write code here
+
+
+View(bears)
+
+bears_clean <- bears %>% 
+    group_by(month) %>% 
+    summarise(incident_count= n())
+
+View(bears_clean)
+
+
+bears_clean %>% ggplot() +
+    geom_col(
+        aes(x=month, y=incident_count)
+    ) + labs(
+        title="Number of bear killings in each month",
+        subtitle="August is the deadliest month",
+        x="Month",
+        y="Count"
+    )
+
 ```
 
 ```{r milk_dots_top10, fig.height=4, fig.width=7}
