@@ -189,7 +189,32 @@ internet_regions_compare %>%
 ```
 
 
+```{r}
 
+internet_wider <- internet_regions_compare %>% 
+    pivot_wider(names_from = "year", values_from = "numUsers")
+
+View(internet_wider)
+
+# JK but let's try a line chart
+
+
+# internet_regions_compare %>% 
+#     ggplot(aes(x=year, y=numUsers, color=region)) +
+#     geom_point()
+
+# https://www.datanovia.com/en/blog/how-to-create-a-ggplot-with-multiple-lines/
+#internet_regions_compare %>% 
+#    ggplot(aes(x = year, y = numUsers)) + 
+#    geom_line(aes(color = region, linetype = region)) + 
+#    scale_color_manual(values = c("darkred", "steelblue", "orange", "yellow", "green", "purple", "black"))
+       
+internet_regions_compare %>% 
+    ggplot(aes(x=year, y=numUsers, color=region)) +
+    geom_line(aes(group = region)) +
+    geom_point()
+
+```
 
 ## Your turn - comparing distributions
 
