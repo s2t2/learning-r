@@ -39,15 +39,66 @@ milk_summary <- milk_production %>%
   mutate(
     milk_produced = milk_produced / 10^9,
     state = fct_reorder(state, milk_produced))
+
+View(milk_summary)
+# looks like we have a row per state
+
+avg_production = mean(milk_summary$milk_produced)
+print(avg_production)
 ```
 
 ```{r milk-lollipop-mean, fig.height=8, fig.width=5.5, fig.align='center'}
 # Write code here
 ```
 
-```{r milk-bars-diverging, fig.height=8, fig.width=6, fig.align='center'}
+```{r milk-bars, fig.height=8, fig.width=6, fig.align='center'}
 # Write code here
+
+
+# https://r-charts.com/part-whole/diverging-bar-chart-ggplot2/
+
+milk_summary %>% 
+    ggplot(
+        aes(x = reorder(state, milk_produced), y = milk_produced)
+    ) +
+    geom_bar(stat = "identity", show.legend = FALSE) +
+    #geom_vline(xintercept = avg_production, color = 'red', linetype = 'dashed') +
+    geom_hline(yintercept = avg_production, color = 'red', linetype = 'dashed') +
+    xlab("State") +
+    ylab("Milk Produced") +
+    coord_flip()
+
+
 ```
+
+
+
+```{r milk-bars-diverging, fig.height=8, fig.width=6, fig.align='center'}
+
+new_summary <- milk_summary
+new_summary$mean_centered <- milk_summary$milk_produced - avg_production
+
+new_summary <- new_summary %>% arrange(desc(milk_produced))
+
+view(new_summary)
+    
+
+new_summary %>% 
+    ggplot(
+        aes(x = reorder(state, mean_centered), y = mean_centered)
+    ) +
+    geom_bar(stat = "identity", show.legend = FALSE) +
+    #geom_vline(xintercept = avg_production, color = 'red', linetype = 'dashed') +
+    geom_hline(yintercept = 0, color = 'red', linetype = 'dashed') +
+    xlab("State") +
+    ylab("Milk Produced") +
+    coord_flip()
+
+
+```
+
+
+
 
 
 
