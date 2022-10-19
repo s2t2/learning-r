@@ -171,10 +171,15 @@ ggplot(internet_regions_compare) +
 # https://datavizpyr.com/dumbbell-plot-in-r-with-ggplot2/
 
 internet_regions_compare %>% 
-    ggplot(aes(x= numUsers, y= region)) +
+    #ggplot(aes(x= numUsers, y= region)) +
+    #ggplot(aes(x= numUsers, y= reorder(region, numUsers))) +
+    #ggplot(aes(x= numUsers, y= fct_reorder2(region, year, desc(numUsers)))) +
+    ggplot(aes(x= numUsers, y= fct_reorder2(region, desc(year), desc(numUsers)))) +
+
     geom_line(aes(group = region)) +
     geom_point(aes(color=year), size=4) +
-    theme(legend.position="right")
+    theme(legend.position="top") +
+    labs(title="Change in Internet Adoption", x="Number of Users", y="Region")
 
 
 ```
