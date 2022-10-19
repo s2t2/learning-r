@@ -224,6 +224,21 @@ Use the `gapminder.csv` data to create the following charts comparing the distri
 gapminder_2007 <- gapminder %>%
   filter(year == 2007) %>%
   mutate(continent = fct_reorder(continent, lifeExp))
+
+View(gapminder_2007)
+
+
+#gapminder_2007 %>% ggplot() +
+#    aes(x=lifeExp) +
+#    geom_density(fill='grey', alpha=0.7)
+
+
+gapminder_2007 %>% ggplot() +
+    aes(x=lifeExp) +
+    geom_density(fill='grey', alpha=0.7) +
+    #facet_grid(cols=vars(continent))
+    facet_grid(rows=vars(continent))
+
 ```
 
 ```{r gapminder-densities, fig.height=4.5, fig.width=6.5, fig.align='center'}
