@@ -116,11 +116,15 @@ Strategies:
 - Slope chart
 
 ```{r internet-usage-bars, fig.height=6, fig.width=10, out.width="80%"}
+View(internet_regions)
+
 internet_regions_compare <- internet_regions %>%
   filter(year %in% c(2000, 2015)) %>%
   mutate(
     numUsers = numUsers / 10^6,
     year = as.factor(year))
+
+View(internet_regions_compare)
 
 ggplot(internet_regions_compare) +
   geom_col(
@@ -134,7 +138,27 @@ ggplot(internet_regions_compare) +
 ```
 
 ```{r internet-usage-facets, fig.height=4, fig.width=14, out.width="80%"}
-# Make a faceted bar chart here
+
+#ggplot(internet_regions_compare) +
+#    geom_col(
+#        aes(x = year, y = numUsers, fill = region)
+#    ) +
+#    facet_wrap(vars(region), nrow = 1)
+  
+ggplot(internet_regions_compare) +
+    geom_col(
+        aes(y = year, x = numUsers, fill = region)
+    ) +
+    facet_grid(rows=vars(region))
+
+
+ggplot(internet_regions_compare) +
+    geom_col(
+        aes(x = year, y = numUsers, fill = region)
+    ) +
+    facet_grid(cols=vars(region))
+
+
 ```
 
 ```{r internet-usage-bullet, fig.height=6, fig.width=10, out.width="80%"}
