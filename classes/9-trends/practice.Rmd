@@ -59,6 +59,20 @@ Consider using:
 global_temps %>% 
     ggplot() +
     geom_point(aes(x=year, y=meanTemp))
+
+
+# LINEAR TREND LINE
+global_temps %>% 
+    ggplot(aes(x=year, y=meanTemp)) +
+    geom_point() + 
+    geom_smooth(method = "lm")
+
+
+# BETTER TREND LINE
+global_temps %>% 
+    ggplot(aes(x=year, y=meanTemp)) +
+    geom_point() + 
+    geom_smooth(method = "loess")
 ```
 
 ## Line
