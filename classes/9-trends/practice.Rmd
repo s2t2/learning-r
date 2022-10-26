@@ -6,12 +6,15 @@ output: html_document
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 # # Install new packages (only do this once!)
-install.packages('viridis')
-install.packages('gganimate')
+#install.packages('viridis')
+#install.packages('gganimate')
 # install.packages('gifski')
 # install.packages('png')
 #install.packages('magick')
 # install.packages('av')
+
+# FYI requires lower level dependency:
+#  brew install imagemagick
 
 library(knitr)
 library(cowplot)
@@ -129,10 +132,21 @@ Use the `global_temps` data frame to animate one of the charts we did in the fir
 ```{r global-temps-points-anim, fig.height=5, fig.width=6}
 
 
+# https://gganimate.com/reference/renderers.html
+# The gifski_renderer() is used unless otherwise specified in animate() or in options('gganimate.renderer').
+# This renderer requires both the gifski and png packages to be installed.
+#
+# Other possible renderers are:
+#
+# magick_renderer() which requires the magick package and produce a gif. If gifski is not installed, the rendering will be much slower than using the gifski_renderer() and can potentially result in system problems when many frames need to be rendered (if gifski is installed magick will use it under the hood)
+
+
 global_temps_anim <- global_temps %>% 
     ggplot() +
     geom_point(aes(x=year, y=meanTemp)) + 
-    transition_reveal(year)
+    transition_reveal(year) + 
+    shadow_trail(0.01) + # Leave a trail of the points
+    labs(title = "Year: {frame_time}") # not working dynamically?
 
 
 animate(global_temps_anim,
