@@ -65,14 +65,25 @@ global_temps %>%
 global_temps %>% 
     ggplot(aes(x=year, y=meanTemp)) +
     geom_point() + 
-    geom_smooth(method = "lm")
+    geom_smooth(method = "lm") +
+    labs(title="Trendline: LM")
 
 
-# BETTER TREND LINE
+# BETTER TREND LINES
+# https://ggplot2.tidyverse.org/reference/geom_smooth.html
+
 global_temps %>% 
     ggplot(aes(x=year, y=meanTemp)) +
     geom_point() + 
-    geom_smooth(method = "loess")
+    geom_smooth(method = "loess") +
+    labs(title="Trendline: LOESS")
+
+
+global_temps %>% 
+    ggplot(aes(x=year, y=meanTemp)) +
+    geom_point() + 
+    geom_smooth(method = "gam") +
+    labs(title="Trendline: GAM")
 ```
 
 ## Line
