@@ -6,11 +6,11 @@ output: html_document
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
 # # Install new packages (only do this once!)
-# install.packages('viridis')
-# install.packages('gganimate')
+install.packages('viridis')
+install.packages('gganimate')
 # install.packages('gifski')
 # install.packages('png')
-# install.packages('magick')
+#install.packages('magick')
 # install.packages('av')
 
 library(knitr)
@@ -20,6 +20,7 @@ library(viridis)
 library(ggrepel)
 library(gganimate)
 library(here)
+library(magick)
 
 knitr::opts_chunk$set(
     warning = FALSE,
@@ -126,7 +127,23 @@ Use the `global_temps` data frame to animate one of the charts we did in the fir
 ## Points
 
 ```{r global-temps-points-anim, fig.height=5, fig.width=6}
-# Write code here
+
+
+global_temps_anim <- global_temps %>% 
+    ggplot() +
+    geom_point(aes(x=year, y=meanTemp)) + 
+    transition_reveal(year)
+
+
+animate(global_temps_anim,
+        end_pause = 15,
+        duration = 10,
+        width = 1100, height = 650, res = 150,
+        renderer = magick_renderer()
+)
+
+anim_save(here::here('figs', 'global_temps_animation.gif'))
+
 ```
 
 ## Line
