@@ -99,10 +99,6 @@ global_temps %>%
     ggplot() +
     geom_line(aes(x=year, y=meanTemp))
 
-
-global_temps %>% 
-    ggplot() +
-    geom_line(aes(x=year, y=smoothTemp))
 ```
 
 ## Smoothed line
@@ -156,7 +152,9 @@ animate(global_temps_anim,
         renderer = magick_renderer()
 )
 
-anim_save(here::here('figs', 'global_temps_animation.gif'))
+# animation: The animation object to save, as returned by animate(). Defaults to the last rendered animation using last_animation()
+filepath <- here::here('global_temps_animation.gif')
+anim_save(filepath)
 
 ```
 
@@ -179,6 +177,21 @@ Use the `us_covid` data frame to explore ways to visualize the number of daily c
 1. A labeled line chart
 2. A stacked area chart
 3. A heat map
+
+
+```{r}
+View(us_covid)
+
+us_covid %>% ggplot() +
+    geom_line(aes(x=date, y=cases_daily))
+
+
+#us_covid %>% 
+#    ggplot(aes(x=date, y=cases_daily)) +
+#    geom_point() +
+#    geom_smooth(method = "loess")
+#
+```
 
 ## Labeled line chart
 
@@ -215,5 +228,23 @@ us_covid %>%
 ## Heat map
 
 ```{r covid_heatmap, fig.height=7, fig.width=10}
-# Write code here
+
+# https://r-graph-gallery.com/79-levelplot-with-ggplot2.html
+
+#us_covid %>% ggplot() +
+#    geom_tile(aes(x=date, y=state, fill=cases_daily))
+
+#us_covid %>% ggplot() +
+#    geom_tile(aes(x=date, y=state, fill=cases_daily)) +
+#    scale_fill_distiller(palette = "RdPu") #+
+#    #theme_ipsum() #> Error in theme_ipsum() : could not find function "theme_ipsum"
+
+us_covid %>% ggplot() +
+    geom_tile(aes(x=date, y=state, fill=cases_daily)) +
+    scale_fill_gradient(low="white", high="red")
+
+
+
+
+
 ```
