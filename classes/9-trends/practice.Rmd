@@ -35,6 +35,8 @@ dplyr.width = Inf
 # Load all the data sets:
 global_temps <- read_csv(here::here('data', 'nasa_global_temps.csv'))
 us_covid     <- read_csv(here::here('data', 'us_covid.csv'))
+
+View(global_temps)
 ```
 
 # 1. Visualizing single variables over time
@@ -52,12 +54,26 @@ Consider using:
 
 ```{r global-temps-points, fig.height=5, fig.width=6}
 # Write code here
+
+
+global_temps %>% 
+    ggplot() +
+    geom_point(aes(x=year, y=meanTemp))
 ```
 
 ## Line
 
 ```{r global-temps-line, fig.height=5, fig.width=6}
 # Write code here
+
+global_temps %>% 
+    ggplot() +
+    geom_line(aes(x=year, y=meanTemp))
+
+
+global_temps %>% 
+    ggplot() +
+    geom_line(aes(x=year, y=smoothTemp))
 ```
 
 ## Smoothed line
@@ -70,6 +86,12 @@ Consider using:
 
 ```{r global-temps-area, fig.height=5, fig.width=6}
 # Write code here
+
+global_temps %>% 
+    ggplot() +
+    geom_area(aes(x=year, y=meanTemp))
+
+
 ```
 
 # 2. Animation
