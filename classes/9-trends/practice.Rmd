@@ -239,8 +239,17 @@ us_covid %>%
 #    scale_fill_distiller(palette = "RdPu") #+
 #    #theme_ipsum() #> Error in theme_ipsum() : could not find function "theme_ipsum"
 
+
+
+# sort states by sum of cases
+# https://stackoverflow.com/questions/33613385/sort-bar-chart-by-sum-of-values-in-ggplot
 us_covid %>% ggplot() +
-    geom_tile(aes(x=date, y=state, fill=cases_daily)) +
+    geom_tile(aes(
+        x=date, 
+        #y=state, 
+        y=reorder(state, cases_daily, function(x){ sum(x) }),
+        fill=cases_daily
+    )) +
     scale_fill_gradient(low="white", high="red")
 
 
