@@ -209,12 +209,24 @@ Re-make the map using a Robinson projection
 
 ```{r, fig.width = 6, fig.height = 3.7}
 # Write code to make the map with a Robinson projection
+
+df_merge %>% ggplot() +
+    geom_sf(aes(fill=percent), color = NA) +
+    coord_sf(crs = "ESRI:54030")
 ```
 
 Re-make the map using a Mercator projection
 
 ```{r, fig.width = 6, fig.height = 3.7}
 # Write code to make the map with a Mercator projection
+
+
+df_merge %>% ggplot() +
+    geom_sf(aes(fill=percent), color = NA) +
+    coord_sf(crs = "ESRI:54004")
+
+
+
 ```
 
 # 4. Extra practice
