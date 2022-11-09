@@ -13,6 +13,13 @@ Load libraries and settings
 # devtools::install_github("ropensci/rnaturalearthhires")
 # devtools::install_github("ropensci/rnaturalearthdata")
 
+
+# RUN THIS:
+#install.packages(c('maps', 'sf', 'rgeos', 'rnaturalearth', 'knitr', 'cowplot', 'viridis',  'tidyverse', 'here', 'janitor', 'devtools'))
+#devtools::install_github("ropensci/rnaturalearthhires")
+#devtools::install_github("ropensci/rnaturalearthdata")
+
+
 library(knitr)
 library(cowplot)
 library(viridis)
@@ -49,6 +56,14 @@ source(here::here('data', 'state_abbs.R'))
 
 Use the **rnaturalearth** library to extract and plot the shape files for China and Africa.
 
+```{r}
+
+# Get the shape file
+world <- ne_countries(scale = "medium", returnclass = "sf")
+View(world)
+```
+
+
 China:
 
 ```{r china, fig.width = 6, fig.height = 3.7}
@@ -62,10 +77,16 @@ China:
 Africa:
 
 ```{r africa, fig.width = 6, fig.height = 3.7}
-# Get the shape file
 
+africa <- world %>%
+    filter(continent == 'Africa')
+view(africa)
 
 # Make the plot
+
+africa %>% ggplot() +
+    geom_sf(fill='grey90', color='grey60') +
+    theme_map()
 
 ```
 
@@ -82,12 +103,29 @@ Read in the shape file and squirrels data:
 central_park <- st_read(here::here(
     'data', 'central_park', 'CentralPark.shp'))
 squirrels <- read_csv(here::here('data', 'nyc_squirrels.csv'))
+
+View(squirrels)
+
+squirrels <- squirrels %>%
+    filter(!is.na(primary_fur_color))
+
 ```
 
 Make the plot:
 
 ```{r nyc_squirrels, fig.width = 10, fig.height = 4}
-# Write code to make the map
+
+
+ggplot() +
+    geom_sf(data = central_park, color = 'grey75') +
+    geom_point(data = squirrels,
+        aes(x = long, y = lat, color = primary_fur_color),
+        size = .5) +
+    facet_wrap(~primary_fur_color, nrow = 1) +
+    theme_void(base_size = 15) +
+    theme(legend.position = 'none',
+          plot.title = element_text(hjust = 0.5)) +
+    labs(title = 'Squirrels in NYC Central Park')
 ```
 
 # 3. Projections
