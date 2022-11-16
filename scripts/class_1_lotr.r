@@ -16,7 +16,7 @@ library(plotly)
 csv_filepath <- "https://raw.githubusercontent.com/emse-eda-gwu/2022-Fall/main/data/lotr_words.csv"
 df <- readr::read_csv(csv_filepath)
 
-print(df)
+View(df)
 
 #
 # AGGREGATIONS
