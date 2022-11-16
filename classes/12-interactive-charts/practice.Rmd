@@ -21,9 +21,9 @@ output: html_document
 # install.packages('sf')
 # install.packages('rgeos')
 # install.packages('devtools')
-# install.packages('rnaturalearth')
-# devtools::install_github("ropensci/rnaturalearthhires")
-# devtools::install_github("ropensci/rnaturalearthdata")
+install.packages('rnaturalearth')
+devtools::install_github("ropensci/rnaturalearthhires")
+devtools::install_github("ropensci/rnaturalearthdata")
 ```
 
 ```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
@@ -42,9 +42,9 @@ library(here)
 library(knitr)
 library(viridis)
 library(cowplot)
-#library(rnaturalearth)
-#library(rnaturalearthhires)
-#library(rnaturalearthdata)
+library(rnaturalearth)
+library(rnaturalearthhires)
+library(rnaturalearthdata)
 library(plotly)
 library(htmlwidgets)
 library(htmltools)
@@ -53,6 +53,13 @@ library(DT)
 library(reactable)
 library(reactablefmtr)
 library(sparkline)
+
+#> installation of package ‘rnaturalearth’ had non-zero exit status
+
+#> Error in library(rnaturalearth) : 
+#> there is no package called ‘rnaturalearth’
+
+
 
 # Read in data sets
 #internet_regions <- read_csv(here('data', 'internet_users_region.csv'))
