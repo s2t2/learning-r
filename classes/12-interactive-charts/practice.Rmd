@@ -42,9 +42,9 @@ library(here)
 library(knitr)
 library(viridis)
 library(cowplot)
-library(rnaturalearth)
-library(rnaturalearthhires)
-library(rnaturalearthdata)
+#library(rnaturalearth)
+#library(rnaturalearthhires)
+#library(rnaturalearthdata)
 library(plotly)
 library(htmlwidgets)
 library(htmltools)
@@ -55,7 +55,7 @@ library(reactablefmtr)
 library(sparkline)
 
 # Read in data sets
-internet_regions <- read_csv(here('data', 'internet_users_region.csv'))
+#internet_regions <- read_csv(here('data', 'internet_users_region.csv'))
 lotr_words <- read_csv(here::here('data', 'lotr_words.csv'))
 gapminder <- read_csv(here::here("data", "gapminder.csv"))
 internet_users <- read_csv(here::here('data', 'internet_users_country.csv'))
@@ -78,14 +78,21 @@ Read [this example](https://kcuilla.github.io/reactablefmtr/articles/embed_img.h
 
 ```{r}
 gapminder_flags <- gapminder %>%
-  mutate(flag = paste(
-    "https://flagshub.com/images/flag-of-",
-    str_to_lower(country), ".png", sep = "")) %>%
+  mutate(flag = paste("https://flagshub.com/images/flag-of-", str_to_lower(country), ".png", sep = "")) %>%
   select(flag, country, everything())
+
+View(gapminder_flags)
 ```
 
 ```{r gapminder_reactable_flags, echo=FALSE}
-gapminder_flags %>%
+#gapminder_flags %>%
+
+#reactable(gapminder_flags) 
+
+reactable(gapminder_flags,
+    columns = list(flag = colDef(cell = embed_img(width = "30", height = "20")))
+ )
+
 ```
 
 
