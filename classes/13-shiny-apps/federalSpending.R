@@ -3,8 +3,7 @@ library(tidyverse)
 library(cowplot)
 
 # load the data
-federal_spending <- read_csv(
-  here::here('data', 'federal_spending_long.csv'))
+federal_spending <- read_csv(here::here('data', 'federal_spending_long.csv'))
 
 ui <- fluidPage(
 

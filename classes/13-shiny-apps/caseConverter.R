@@ -26,7 +26,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
 
   output$lowercaseText <- renderText({
-
+      tolower(input$inputText)
   })
 
 }
