@@ -22,6 +22,11 @@ ui <- fluidPage(
       h3("Upper case:"),
       textOutput(
           outputId = "uppercaseText"
+      ),
+      
+      h3("Title case:"),
+      textOutput(
+          outputId = "titlecaseText"
       )
 
     )
@@ -38,6 +43,9 @@ server <- function(input, output, session) {
       toupper(input$inputText)
   })
 
+  output$titlecaseText <- renderText({
+      str_to_title(input$inputText)
+  })
 }
 
 shinyApp(ui, server)
