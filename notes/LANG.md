@@ -16,6 +16,9 @@ https://support.rstudio.com/hc/en-us/articles/200404846-Working-in-the-Console-i
 
 ### Local Development
 
+> NOTE: installation via homebrew may be problematic / may result in persistent package installation issues
+
+
 Install R:
 
 
@@ -23,6 +26,15 @@ Install R:
 brew install r
 ```
 
+Access the console:
+
+```sh
+# use capital letter
+R
+
+# quit the console:
+# quit()
+```
 
 ## Version Management
 
@@ -32,6 +44,9 @@ https://rstudio.github.io/renv/articles/renv.html
 
 
 ## Package Management
+
+> NOTE: from personal experience package installation in R can be buggy / inconsistent
+
 
 Installing:
 
