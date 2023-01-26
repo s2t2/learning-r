@@ -9,20 +9,46 @@ turtle_init()
 
 # seems like the turtle teleports directly instead of moving smoothely
 
-for (x in 1:5) {
+#for (x in 1:5) {
+#
+#  # do this 10 times:
+#  print("MOVING...")
+#
+#  Sys.sleep(1)
+#
+#  turtle_move(50, direction="forward")
+#
+#  turtle_turn(45, direction="right")
+#
+#  turtle_move(50, direction="backward")
+#
+#}
 
-  # do this 10 times:
-  print("MOVING...")
 
-  Sys.sleep(1)
+Sys.sleep(1)
 
-  turtle_move(50, direction="forward")
+turtle_forward(5)
+Sys.sleep(1)
 
-  turtle_turn(45, direction="right")
+turtle_up()
+Sys.sleep(1)
 
-  turtle_move(50, direction="backward")
+turtle_forward(3)
+Sys.sleep(1)
 
-}
+turtle_down()
+Sys.sleep(1)
+
+turtle_left(90)
+Sys.sleep(1)
+
+turtle_forward(5)
+Sys.sleep(1)
+
+turtle_param(col = "red", lwd = 2, lty = 2)
+Sys.sleep(1)
+
+turtle_forward(5)
 
 
 
