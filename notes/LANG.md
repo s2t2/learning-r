@@ -272,7 +272,7 @@ sort(a, decreasing = TRUE)
 
 https://jhelvy.github.io/r4aPrimer/L3-data-frames.html
 
-See [teams.r](teams.r)
+See [teams.r](/scripts/teams.r)
 
 ```r
 teams <- data.frame(
@@ -356,7 +356,7 @@ hist(x = gradebook_df$final_grade)
 barplot(gradebook_df$final_grade, main="Title", xlab="X Axis", ylab="Y Axis")
 ```
 
-See [stocks.r](stocks.r) file.
+See [stocks.r](/scripts/stocks.r) file.
 
 
 ### GGplot
@@ -380,4 +380,4 @@ df %>%
 https://jhelvy.github.io/r4aPrimer/L4-data-wrangling.html#31_The_group_by()_function
 
 
-See [sales.r](sales.r) file.
+See [sales.r](/scripts/sales.r) file.
