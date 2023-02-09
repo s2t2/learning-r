@@ -1,4 +1,14 @@
 
+# default testing
+
+stopifnot(2+2 == 4)
+#> NO ERROR
+
+stopifnot(2+2 == 5)
+#> Error: 2 + 2 == 5 is not TRUE
+
+
+
 
 # https://www.rdocumentation.org/packages/testit/versions/0.13/topics/assert
 
