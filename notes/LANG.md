@@ -201,20 +201,66 @@ is.numeric(3.14)
 
 #### Vectors (Arrays)
 
+Creating vectors using the `c` function:
+
 ```r
 x <- c(1, 2, 3)
 
+```
+
+Counting number of items in the vector:
+
+```r
 length(x)
 ```
+
+Other summary / aggregation functions that accept a vector:
 
 ```r
 mean(x)
 median(x)
+
 max(x)
 min(x)
+
 sum(x)
 prod(x)
 ```
+
+Vector accessors (index starts at 1 !?):
+
+```r
+a = c(2, 4, 6, 3, 1, 5)
+
+a[0]
+#> numeric(0)
+
+a[1]
+#> 2
+
+a[2]
+#> 4
+```
+
+Negative indexes mean "all items except this one":
+
+```r
+a[-2]
+
+#> 2 6 3 1 5
+
+a[-3]
+#> 2 4 3 1 5
+>
+```
+
+Slicing works like other languages (except indices start at 1):
+
+```r
+a[1:4]
+#> 2 4 6 3
+```
+
 
 Vector Comparison:
 
@@ -279,10 +325,6 @@ x[0]
 x[1]
 #>  a
 #> 10
-
-x[2]
-# >  b
-# > 12
 
 x["a"]
 #>  a
