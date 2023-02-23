@@ -272,6 +272,12 @@ x == y #> TRUE TRUE TRUE
 all(x == y) #> TRUE
 ```
 
+Vector inclusion:
+
+```r
+3 %in% x
+#> TRUE
+```
 String Vector Concatenation:
 
 ```r
