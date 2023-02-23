@@ -267,6 +267,35 @@ sort(a)
 sort(a, decreasing = TRUE)
 ```
 
+#### Named Vectors (Dictionary Like)
+
+```r
+x <- c("a"=10, "b"=12, "c"=13)
+
+x[0]
+#> named numeric(0)
+#> WAT? indexes start at 1?
+
+x[1]
+#>  a
+#> 10
+
+x[2]
+# >  b
+# > 12
+
+x["a"]
+#>  a
+#> 10
+
+y <- x["a"] + 10
+
+y
+#>  a
+#> 20
+```
+
+
 
 ### Data Frames
 
