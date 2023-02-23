@@ -294,7 +294,19 @@ is.vector(stringVector) #> TRUE
 is.vector("HELLO") #> TRUE
 ```
 
-Vector operations perform matrix multiplication:
+Operations with vectors and scalars:
+
+```r
+x <- c(1, 2, 3)
+
+x + 4
+#> 5 6 7
+
+x * 10
+#> 10 20 30
+```
+
+Vector operations, and performing matrix multiplication:
 
 ```r
 x = c(1,2,3)
@@ -311,6 +323,25 @@ a = c(2, 4, 6, 3, 1, 5)
 sort(a)
 
 sort(a, decreasing = TRUE)
+```
+
+Concatenating vectors:
+
+```r
+x = c(1,2,3)
+a = c(2, 4, 6, 3, 1, 5)
+
+c(x,a)
+#>  1 2 3 2 4 6 3 1 5
+```
+
+Appending to a vector, using functional style:
+
+```r
+x = c(1,2,3)
+
+append(x, 4)
+#> 1 2 3 4
 ```
 
 #### Named Vectors (Dictionary Like)
