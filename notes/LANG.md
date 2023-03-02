@@ -3,92 +3,20 @@
 
 Course Prep: https://jhelvy.github.io/r4aPrimer/L0-course-prep.html
 
-## Installation
-
-### In the Cloud
-
-Sign up for cloud r studio account: https://rstudio.cloud/
-
-How to clear the console / start over? `ctrl + L`
-
-https://support.rstudio.com/hc/en-us/articles/200404846-Working-in-the-Console-in-the-RStudio-IDE
-
-
-### Local Development
-
-> NOTE: installation via homebrew may be problematic / may result in persistent package installation issues
-
-
-Install R:
-
-
-```sh
-brew install r
-```
-
-Access the console:
-
-```sh
-# use capital letter
-R
-
-# quit the console:
-# quit()
-```
-
-## Version Management
-
-Explore this R version manager for installing project-specific environments and packages:
-
-https://rstudio.github.io/renv/articles/renv.html
-
-
-## Package Management
-
-> NOTE: from personal experience package installation in R can be buggy / inconsistent
-
-
-Installing:
-
-```r
-install.packages("packagename")
-```
-
-Importing:
-
-```r
-library("packagename")
-```
-
-Inspecting:
-
-```r
-library()
-library("packagename")
-```
-
-Invoking:
-
-```r
-provided_func()
-
-# or ...
-packagename::provided_func()
-```
-
-### Project Management
-
-In R Studio, before working with any .Rmd file, we need to run the .RProj file first, to help configure file paths, etc. Otherwise `here` filepaths might not work as expected.
-
-
-## Language Overview
+## Language Overview, Part I
 
 https://jhelvy.github.io/r4aPrimer/L1-getting-started.html
 
 ### Printing and logging
 
-No explicit print / log statement needed?
+Can use `cat` function with a newline character to print:
 
+```r
+cat("HELLO", "\n")
+cat("WORLD")
+#> HELLO
+#> WORLD
+```
 
 ### Variables
 
@@ -103,32 +31,6 @@ x <- 2
 ```r
 user_name <- readline(prompt="Enter name: ")
 user_name
-```
-
-### Environment Variables
-
-
-Use ".Renviron" file like a ".env" file:
-
-```sh
-ALPHAVANTAGE_API_KEY="abc123"
-MY_MESSAGE="super secret"
-```
-
-```r
-secret_message <- Sys.getenv("SECRET_MESSAGE")
-secret_message
-```
-
-Alternative, using ".env" file approach:
-
-```r
-install.packages("dotenv")
-
-library(dotenv)
-
-secret_message <- Sys.getenv("SECRET_MESSAGE")
-secret_message
 ```
 
 ### Logical Operators
@@ -153,6 +55,28 @@ if (2+2 == 4) {
 }
 message
 ```
+
+### Functions
+
+```r
+
+# defining:
+enlarge <- function(n){
+  
+  cat("ENLARGING...\n")
+  
+  return(n * 100)
+}
+
+# invoking:
+enlarge(5)
+
+
+# testing:
+stopifnot(enlarge(5) == 500)
+```
+
+
 
 ### Datatypes
 
@@ -312,7 +236,7 @@ x * 10
 #> 10 20 30
 ```
 
-Vector operations, and performing matrix multiplication:
+Operations with vectors and vectors:
 
 ```r
 x = c(1,2,3)
@@ -374,118 +298,3 @@ y
 #> 20
 ```
 
-
-
-### Data Frames
-
-https://jhelvy.github.io/r4aPrimer/L3-data-frames.html
-
-See [teams.r](/scripts/teams.r)
-
-```r
-teams <- data.frame(
-    city   = c("Boston", "New York", "New York", "New Haven"),
-    name    = c("Red Sox", "Yankees", "Mets", "Ravens"),
-    league  = c("major", "major", "major", "minor")
-)
-```
-
-```r
-teams$city #>  "Boston"    "New York"  "New York"  "New Haven"
-teams$city[1] #> "Boston
-```
-
-
-
-Inspecting / previewing the rows:
-
-```r
-View(teams)
-
-head(teams)
-
-tail(teams)
-
-glimpse(teams)
-
-summary(teams)
-```
-
-Smarter Data Frames:
-
-```r
-# install.packages('dplyr')
-library(dplyr)
-
-teams <- dplyr::tibble(
-  city   = c("Boston", "New York", "New York", "New Haven"),
-  name    = c("Red Sox", "Yankees", "Mets", "Ravens"),
-  league  = c("major", "major", "major", "minor")
-)
-length(teams)
-```
-
-```r
-teams$city #>
-teams$city[1] #> "Boston"
-```
-
-
-
-
-## CSV Files
-
-
-Create new test CSV file called [gradebook.csv](https://raw.githubusercontent.com/prof-rossetti/intro-to-python/main/data/gradebook.csv)
-
-```r
-library(here)
-library(readr)
-
-# csv_filepath = here('data', 'gradebook.csv')
-csv_filepath = here('gradebook.csv')  #> "/cloud/project/gradebook.csv"
-gradebook_df <- read_csv(csv_filepath)
-
-grades = gradebook_df$final_grade
-min(grades)
-max(grades)
-```
-
-
-## Dataviz
-
-
-```r
-plot(x = gradebook_df$student_id, y = gradebook_df$final_grade)
-
-hist(x = gradebook_df$final_grade)
-
-# https://www.geeksforgeeks.org/r-bar-charts/
-barplot(gradebook_df$final_grade, main="Title", xlab="X Axis", ylab="Y Axis")
-```
-
-See [stocks.r](/scripts/stocks.r) file.
-
-
-### GGplot
-
-  + https://www.rdocumentation.org/packages/ggplot2/versions/3.3.6
-  + https://ggplot2.tidyverse.org/reference/
-
-
-## Wrangling
-
-```r
-df %>%
-  filter(!is.na(height)) %>%
-  group_by(state) %>%          # Here we're grouping by state
-  mutate(mean_height = mean(height)) %>%
-  select(state, mean_height)
-```
-
-## Grouping / Aggregation
-
-https://jhelvy.github.io/r4aPrimer/L4-data-wrangling.html#31_The_group_by()_function
-
-
-See [sales.r](/scripts/sales.r) file.
