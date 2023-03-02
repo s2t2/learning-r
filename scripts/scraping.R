@@ -202,3 +202,37 @@ for (drink in drinks[1:5]){
 
     cat(drink_id, drink_name, "\n")
 }
+
+
+# MORE API PRACTICE
+
+# https://www.alphavantage.co/documentation/#unemployment
+# 
+
+api_key <- "demo" # TODO: use environment variables if you want to securely specify your own API Key credential
+unemployment_url <- paste("https://www.alphavantage.co/query?function=UNEMPLOYMENT&apikey=", api_key, sep="")
+unemployment_response <- httr::GET(url=unemployment_url)
+parsed_response <- unemployment_response %>% httr::content()
+cat(typeof(parsed_response)) #> list
+cat(names(parsed_response)) #> "name"     "interval" "unit"     "data"    
+
+typeof(parsed_response["name"]) #> list ARG
+cat(parsed_response["name"][[1]])
+
+#clean_data <- list()
+#counter <- 1
+unemployment_data <- parsed_response["data"][[1]]
+for (datapoint in unemployment_data[1:3]){
+    #cat(typeof(datapoint), "\n") #> list
+    #print(names(datapoint)) #> "date"  "value"
+    the_date <- datapoint["date"][[1]]
+    the_rate <- datapoint["value"][[1]]
+    cat(the_date, the_rate, "\n")
+    #clean_datapoint <- c("date"=the_date, "rate"=the_rate)
+    #clean_data[counter] <- clean_datapoint
+    #counter <- counter + 1
+}
+
+clean_data[1]
+
+
