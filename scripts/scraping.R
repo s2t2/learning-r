@@ -172,7 +172,8 @@ install.packages("httr")
 # https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic
 #> {"drinks": [{}, {}, ... {}]}
 
-drinks_response <- httr::GET(url="https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic")
+drinks_url <- "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic"
+drinks_response <- httr::GET(url=drinks_url)
 cat(typeof(drinks_response), "\n")
 
 drinks_data <- drinks_response %>% httr::content()
@@ -233,6 +234,19 @@ for (datapoint in unemployment_data[1:3]){
     #counter <- counter + 1
 }
 
-clean_data[1]
+#clean_data[1]
+
+# USE JSONLITE TO CONVERT JSON TO DATAFRAME
+# https://cran.r-project.org/web/packages/jsonlite/vignettes/json-aaquickstart.html
+
+library(jsonlite)
+
+drinks_document <- fromJSON(txt=drinks_url)
+typeof(drinks_document) #> list
+names(drinks_document) #> "drinks"
+drinks <- drinks_document["drinks"]
+typeof(drinks) #> list
+
+# hmm, doesn't help at all?
 
 
