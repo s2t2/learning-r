@@ -93,9 +93,16 @@ beatles
 # 2. Filter the data frame to select only the rows for the band members
 #    who have four-letter first names.
 
-str_length(beatles$firstName) == 4
+# str_length(beatles$firstName) == 4
 
 beatles[str_length(beatles$firstName) == 4, ]
+
+
+# https://dplyr.tidyverse.org/reference/filter.html
+# https://www.geeksforgeeks.org/how-to-filter-r-dataframe-by-values-in-a-column/
+beatles %>% filter(playsGuitar == TRUE)
+beatles %>% filter(str_length(firstName) == 4)
+
 
 # 3. Create a new column, fullName, which contains the band member's
 #    first and last name separated by a space (e.g. "John Lennon")
