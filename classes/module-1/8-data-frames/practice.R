@@ -46,8 +46,11 @@ ncol(animals_pet)
 # Add a new column to animals called type that tells if an animal is a "farm" 
 # or "pet" animal.
 
+# square brackets returns DF with one column:
 #animals_farm["animal_type"] = "FARM"
 #animals_pet["animal_type"] = "PET"
+
+# dollar sign returns a vector
 animals_farm$animal_type = "FARM"
 animals_pet$animal_type = "PET"
 
@@ -71,15 +74,40 @@ beatles <- tibble(
     deceased    = c(TRUE, FALSE, FALSE, TRUE)
 )
 
+beatles$hometown <- "Liverpool"
+beatles
+
+# with filtering: [rows, cols]
+beatles[beatles["deceased"] == FALSE, ]
+
+
 # 1. Create a new column, playsGuitar, which is TRUE if the band member
 #    plays the guitar and FALSE otherwise.
+
+# https://stackoverflow.com/a/33930309/670433
+
+beatles$playsGuitar <- ifelse(beatles$instrument == "guitar", TRUE,FALSE)
+beatles
 
 
 # 2. Filter the data frame to select only the rows for the band members
 #    who have four-letter first names.
 
+str_length(beatles$firstName) == 4
+
+beatles[str_length(beatles$firstName) == 4, ]
+
 # 3. Create a new column, fullName, which contains the band member's
 #    first and last name separated by a space (e.g. "John Lennon")
+
+# https://www.marsja.se/how-to-concatenate-two-columns-or-more-in-r-stringr-tidyr/
+#beatles$fullName <- cat(beatles$firstName, beatles$lastName)
+beatles$fullName <- paste(beatles$firstName, beatles$lastName)
+beatles
+
+
+
+
 
 
 
