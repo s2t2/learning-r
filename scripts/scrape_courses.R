@@ -14,7 +14,8 @@ for(subject in subjects){
     cat("----------------------", "\n")
     cat(subject)
     
-    page <- read_html(paste("http://bulletin.gwu.edu/courses/", tolower(subject), sep=""))
+    request_url <- paste("http://bulletin.gwu.edu/courses/", tolower(subject), sep="")
+    page <- read_html(request_url)
     course_divs <- page %>% html_nodes(".courseblock")
     
     for(div in course_divs){
