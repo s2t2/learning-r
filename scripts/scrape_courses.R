@@ -32,3 +32,5 @@ for(subject in subjects){
 
     } 
 }
+
+# TODO: collect all the courses into a single dataframe!
